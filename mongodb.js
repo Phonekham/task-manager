@@ -4,8 +4,8 @@
 
 const { MongoClient, ObjectID } = require("mongodb");
 const id = new ObjectID();
-console.log(id.id.length);
-console.log(id.toHexString().length);
+// console.log(id.id.length);
+// console.log(id.toHexString().length);
 
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
@@ -19,56 +19,26 @@ MongoClient.connect(
     }
     // console.log("connected");
     const db = client.db(databaseName);
-    // db.collection("users").insertOne(
+    // db.collection("users").findOne({ name: "test" }, (error, user) => {
+    //   if (error) {
+    //     console.log("unable to fetch");
+    //   }
+    //   console.log(user);
+    // });
+
+    // db.collection("task").findOne(
     //   {
-    //     _id: id,
-    //     name: "test",
-    //     age: 24
+    //     _id: new ObjectID("5d2305a1b53a6a291495f7b1")
     //   },
-    //   (error, result) => {
-    //     if (error) {
-    //       return console.log("Unable to connect to database");
-    //     }
-    //     console.log(result.ops);
+    //   (error, task) => {
+    //     console.log(task);
     //   }
     // );
 
-    // db.collection("users").insertMany(
-    //   [
-    //     {
-    //       name: "Phone",
-    //       age: 33
-    //     },
-    //     {
-    //       name: "noy",
-    //       age: 34
-    //     }
-    //   ],
-    //   (error, result) => {
-    //     if (error) {
-    //       return console.log("Unable to insert to database");
-    //     }
-    //     console.log(result.ops);
-    //   }
-    // );
-
-    // db.collection("task").insertMany(
-    //   [
-    //     {
-    //       description: "coding",
-    //       completed: false
-    //     },
-    //     {
-    //       description: "play game",
-    //       completed: false
-    //     }
-    //   ],
-    //   (error, result) => {
-    //     if (error) {
-    //       return console.log("Unable to insert to database");
-    //     }
-    //     console.log(result.ops);
-    //   }
-    // );
+    db.collection("task")
+      .find({ completed: false })
+      .toArray((error, task) => {
+        console.log(task);
+      });
   }
 );
