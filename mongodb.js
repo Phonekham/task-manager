@@ -35,10 +35,48 @@ MongoClient.connect(
     //   }
     // );
 
+    // db.collection("task")
+    //   .find({ completed: false })
+    //   .toArray((error, task) => {
+    //     console.log(task);
+    //   });
+
+    // const updatePromise = db.collection("users").updateOne(
+    //   {
+    //     _id: new ObjectID("5d23018b04660412a40c8483")
+    //   },
+    //   {
+    //     $inc: {
+    //       age: 1
+    //     }
+    //   }
+    // );
+
+    // updatePromise
+    //   .then(result => {
+    //     console.log(result);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+
     db.collection("task")
-      .find({ completed: false })
-      .toArray((error, task) => {
-        console.log(task);
+      .updateMany(
+        {
+          completed: false
+        },
+        {
+          $set: {
+            completed: true
+          }
+        }
+      )
+      .then(result => {
+        console.log(result.modifiedCount);
+      })
+      .catch(error => {
+        console.log(error);
       });
+    //
   }
 );
