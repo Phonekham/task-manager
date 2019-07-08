@@ -1,10 +1,16 @@
-const mongodb = require("mongodb");
-const mongoClient = mongodb.MongoClient;
+// const mongodb = require("mongodb");
+// const mongoClient = mongodb.MongoClient;
+// const ObjectID = mongodb.ObjectID;
+
+const { MongoClient, ObjectID } = require("mongodb");
+const id = new ObjectID();
+console.log(id.id.length);
+console.log(id.toHexString().length);
 
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
 
-mongoClient.connect(
+MongoClient.connect(
   connectionURL,
   { useNewUrlParser: true },
   (error, client) => {
@@ -15,7 +21,8 @@ mongoClient.connect(
     const db = client.db(databaseName);
     // db.collection("users").insertOne(
     //   {
-    //     name: "Phonekham",
+    //     _id: id,
+    //     name: "test",
     //     age: 24
     //   },
     //   (error, result) => {
@@ -45,23 +52,23 @@ mongoClient.connect(
     //   }
     // );
 
-    db.collection("task").insertMany(
-      [
-        {
-          description: "coding",
-          completed: false
-        },
-        {
-          description: "play game",
-          completed: false
-        }
-      ],
-      (error, result) => {
-        if (error) {
-          return console.log("Unable to insert to database");
-        }
-        console.log(result.ops);
-      }
-    );
+    // db.collection("task").insertMany(
+    //   [
+    //     {
+    //       description: "coding",
+    //       completed: false
+    //     },
+    //     {
+    //       description: "play game",
+    //       completed: false
+    //     }
+    //   ],
+    //   (error, result) => {
+    //     if (error) {
+    //       return console.log("Unable to insert to database");
+    //     }
+    //     console.log(result.ops);
+    //   }
+    // );
   }
 );
