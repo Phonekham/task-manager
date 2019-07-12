@@ -35,12 +35,16 @@ app.listen(port, () => {
 // };
 // myFunction();
 
-const pet = {
-  name: "heu"
-};
+const Task = require("./models/task");
+const User = require("./models/user");
 
-pet.toJSON = function() {
-  return {};
-};
+const main = async () => {
+  // const task = await Task.findById("5d2861566b936731405e7a19");
+  // await task.populate("owner").execPopulate(); //find task's user
+  // console.log(task.owner);
 
-console.log(JSON.stringify(pet));
+  const user = await User.findById("5d285c0fa57d3136f0c28654");
+  await user.populate("tasks").execPopulate();
+  console.log(user.tasks);
+};
+main();
