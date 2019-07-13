@@ -19,9 +19,19 @@ const upload = multer({
     cb(undefined, true);
   }
 });
-app.post("/upload", upload.single("upload"), (req, res) => {
-  res.send();
-});
+// const errorMiddleware = (req, res, next) => {
+//   throw new Error("from middleware");
+// };
+app.post(
+  "/upload",
+  upload.single("upload"),
+  (req, res) => {
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
 
 app.use(express.json());
 app.use(userRouter);
